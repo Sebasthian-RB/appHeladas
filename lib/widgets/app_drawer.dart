@@ -6,8 +6,13 @@ import '../screens/advice_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   final String languageCode;
+  final void Function(String) onLanguageSelected;
 
-  const AppDrawer({super.key, required this.languageCode});
+  const AppDrawer({
+    super.key,
+    required this.languageCode,
+    required this.onLanguageSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +35,16 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (_) => const LanguageScreen()),
+                MaterialPageRoute(
+                  builder: (_) => LanguageScreen(
+                    onLanguageSelected: onLanguageSelected,
+                  ),
+                ),
               );
             },
           ),
+
+          // Opción cultivos
           ListTile(
             title: Text(t.getText('crops')),
             onTap: () {
@@ -45,13 +56,15 @@ class AppDrawer extends StatelessWidget {
               );
             },
           ),
+
+          // Opción consejos
           ListTile(
             title: Text(t.getText('advice')),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => AdviceScreen(languageCode: languageCode),
+                  builder: (_) => AdviceScreen(language: languageCode),
                 ),
               );
             },

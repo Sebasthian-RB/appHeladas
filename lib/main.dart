@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
 import 'screens/language_screen.dart';
+import 'screens/home_screen.dart'; // asegúrate de tener esta pantalla
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String? _selectedLanguage;
+
+  void _setLanguage(String languageCode) {
+    setState(() {
+      _selectedLanguage = languageCode;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'App Agro',
+      title: 'Achachay',
       theme: ThemeData(
         primaryColor: const Color(0xFF1D4576),
         scaffoldBackgroundColor: const Color(0xFFF6F3E8),
@@ -43,7 +57,12 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LanguageScreen(),
+      home: _selectedLanguage == null
+          ? LanguageScreen(onLanguageSelected: _setLanguage)
+          : HomeScreen(
+            languageCode: _selectedLanguage!,
+            onLanguageSelected: _setLanguage,
+          ),
     );
   }
 }
