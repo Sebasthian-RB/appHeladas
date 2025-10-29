@@ -1,3 +1,4 @@
+import 'package:app_heladas/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -18,7 +19,7 @@ class LanguageScreen extends StatelessWidget {
             center: Alignment(0, -0.3),
             radius: 1.2,
             colors: [
-              Color(0xFF1565C0), // Azul medio elegante
+              Color(0xFF1565C0), // Azul medio
               Color(0xFF0D47A1), // Azul profundo
             ],
           ),
@@ -108,7 +109,7 @@ class LanguageScreen extends StatelessWidget {
                       text: 'Español',
                       icon: LucideIcons.globe,
                       gradientColors: const [Color(0xFF4FC3F7), Color(0xFF0288D1)],
-                      onTap: () => onLanguageSelected('es'),
+                      onTap: () => _selectLanguageAndGo(context, 'es'),
                     ),
                     const SizedBox(height: 20),
 
@@ -118,7 +119,7 @@ class LanguageScreen extends StatelessWidget {
                       text: 'Runasimi (Quechua)',
                       icon: LucideIcons.feather,
                       gradientColors: const [Color(0xFF81D4FA), Color(0xFF0277BD)],
-                      onTap: () => onLanguageSelected('qu'),
+                      onTap: () => _selectLanguageAndGo(context, 'qu'),
                     ),
                   ],
                 ),
@@ -127,6 +128,21 @@ class LanguageScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  /// Lógica central: notifica a MyApp y reemplaza la pila por HomeScreen con el idioma nuevo.
+  void _selectLanguageAndGo(BuildContext context, String langCode) {
+    // 1) Actualiza el estado global a través del callback
+    onLanguageSelected(langCode);
+
+    // 2) Reemplaza la pila de navegación y abre HomeScreen con el idioma seleccionado.
+    //    Usamos pushAndRemoveUntil para evitar duplicados en la pila y forzar reconstrucción.
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (_) => HomeScreen(languageCode: langCode, onLanguageSelected: onLanguageSelected),
+      ),
+          (Route<dynamic> route) => false,
     );
   }
 
