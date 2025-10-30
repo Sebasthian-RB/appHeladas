@@ -1,4 +1,4 @@
-# 🌨️ App Heladas
+# 🌨️ Achachay
 
 Aplicación móvil desarrollada con **Flutter** para el monitoreo y pronóstico de heladas, mostrando información sobre temperatura, humedad, viento, radiación, cobertura nubosa y punto de rocío.  
 Su objetivo principal es alertar a los usuarios sobre la **presencia de nevada blanca o negra**.
