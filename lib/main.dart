@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/language_screen.dart';
-import 'screens/home_screen.dart'; // asegúrate de tener esta pantalla
+import 'screens/home_screen.dart';
+import 'widgets/splash_wrapper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,12 +58,14 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      home: _selectedLanguage == null
-          ? LanguageScreen(onLanguageSelected: _setLanguage)
-          : HomeScreen(
-            languageCode: _selectedLanguage!,
-            onLanguageSelected: _setLanguage,
-          ),
+      home: SplashWrapper(
+        child: _selectedLanguage == null
+            ? LanguageScreen(onLanguageSelected: _setLanguage)
+            : HomeScreen(
+          languageCode: _selectedLanguage!,
+          onLanguageSelected: _setLanguage,
+        ),
+      ),
     );
   }
 }
