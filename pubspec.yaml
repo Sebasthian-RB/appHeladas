@@ -62,6 +62,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/fonts/
+    - assets/images/crops/
   # FUENTES: Poppins (todas las variantes)
   fonts:
   - family: Poppins
