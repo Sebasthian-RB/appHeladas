@@ -5,7 +5,7 @@ class AppLocalizations {
 
   static final Map<String, Map<String, String>> _localizedValues = {
     'es': {
-      'title': 'Aplicación Agrícola',
+      'title': 'Achachay',
       'language': 'Cambiar idioma',
       'crops': 'Cultivos',
       'advice': 'Consejos',
@@ -116,7 +116,7 @@ class AppLocalizations {
     },
 
     'qu': {
-      'title': 'Sallqa Ruray Aplikasiyun',
+      'title': 'Achachay',
       'language': 'Rimay allichay',
       'crops': 'Sallqakuna',
       'advice': 'Kawsay rimaykuna',

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1004477166873",
+    "project_id": "achachay-db",
+    "storage_bucket": "achachay-db.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004477166873:android:1b69e2a87fca47a2634188",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBizi5Vbd-6mQOH2e4VOjfgKuuJbP3H7U0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

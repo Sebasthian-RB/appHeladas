@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../screens/splash_screen.dart'; // asegúrate de importar correctamente
+import '../screens/splash_screen.dart';
 
 class SplashWrapper extends StatefulWidget {
-  final Widget child; // este es el contenido real de tu home
+  final Widget child; // Contenido de home
 
   const SplashWrapper({super.key, required this.child});
 
@@ -31,7 +31,7 @@ class _SplashWrapperState extends State<SplashWrapper> {
   @override
   Widget build(BuildContext context) {
     return _showSplash
-        ? const SplashScreen() // tu pantalla de inicio animada
-        : widget.child; // luego muestra tu lógica actual intacta
+        ? const SplashScreen() // pantalla de inicio animada
+        : widget.child; // muestra lógica actual
   }
 }
