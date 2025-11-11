@@ -40,6 +40,26 @@ android {
     }
 }
 
+subprojects {
+    afterEvaluate {
+        if (project.hasProperty("android")) {
+            project.configure<com.android.build.gradle.BaseExtension> {
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_11
+                    targetCompatibility = JavaVersion.VERSION_11
+                }
+            }
+        }
+
+        // Version Java para proyectos Java/Kotlin normales:
+        if (project.hasProperty("kotlin")) {
+            project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+                kotlinOptions.jvmTarget = "11"
+            }
+        }
+    }
+}
+
 flutter {
     source = "../.."
 }
