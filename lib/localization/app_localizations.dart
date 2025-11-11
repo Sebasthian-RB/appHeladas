@@ -33,6 +33,10 @@ class AppLocalizations {
       'crops_title': 'Condiciones y Recomendaciones de Cultivo',
       'crops_subtitle': 'Conoce cómo proteger y fortalecer tus cultivos',
       'crops_description': 'Explora los consejos según el tipo de cultivo para prevenir los efectos de las heladas.',
+      "temperature_avg": "Temperatura promedio",
+      "description": "Descripción",
+      "white_frost": "Helada Blanca",
+      "black_frost": "Helada Negra",
 
       // Detalles de cada cultivo
       'maiz_temp': '18 °C – 27 °C',
@@ -139,6 +143,10 @@ class AppLocalizations {
       'crops_title': 'Yurakunapa kamachiykuna',
       'crops_subtitle': 'Yurakunata sumaqta waqaychayta yachay',
       'crops_description': 'Heladawan manchakuyta ñawpaqta hark’aypaq yachachiykuna.',
+      "temperature_avg": "Ruphay tupuy chanin",
+      "description": "Nirqay",
+      "white_frost": "Rit'i Yurak",
+      "black_frost": "Rit'i Yana",
 
       // Detalles traducidos
       'maiz_temp': '18 °C – 27 °C',

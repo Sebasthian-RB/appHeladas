@@ -230,7 +230,7 @@ class _CropsScreenState extends State<CropsScreen> with TickerProviderStateMixin
                       .animate(CurvedAnimation(parent: animation, curve: Curves.easeOutQuart)),
                   child: CropDetailScreen(
                     languageCode: widget.languageCode,
-                    cropName: cropName,
+                    cropName: cropKey,
                   ),
                 ),
               ),
@@ -258,7 +258,7 @@ class _CropsScreenState extends State<CropsScreen> with TickerProviderStateMixin
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // 🌿 Imagen circular centrada
+                // Imagen circular centrada
                 Container(
                   height: 90,
                   width: 90,
@@ -307,7 +307,7 @@ class _CropsScreenState extends State<CropsScreen> with TickerProviderStateMixin
   }
 }
 
-/// 🌌 Fondo con partículas y curvas (azul)
+/// Fondo con partículas y curvas (azul)
 class _BackgroundParticles extends StatelessWidget {
   final AnimationController controller;
   const _BackgroundParticles({required this.controller});

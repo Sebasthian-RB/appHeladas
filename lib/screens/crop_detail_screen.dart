@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../localization/app_localizations.dart';
 
 class CropDetailScreen extends StatefulWidget {
   final String languageCode;
@@ -24,22 +25,31 @@ class _CropDetailScreenState extends State<CropDetailScreen>
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
-  final Map<String, dynamic> cropData = {
-    'name': 'Papa',
-    'latin': 'Solanum tuberosum',
-    'image': 'papa.png',
-    'temperature': '14 - 18',
-    'description':
-    'La papa es un cultivo originario de los Andes, resistente al frío y adaptable a distintas altitudes.',
-    'white_frost':
-    'Cubre las plantas con paja o manta térmica antes del amanecer para retener calor y evitar daños por heladas blancas.',
-    'black_frost':
-    'Evita riegos nocturnos, aplica riego temprano y protege con humo o cortavientos naturales durante las heladas negras.',
+  late AppLocalizations loc;
+
+  // Mapa con nombres científicos
+  final Map<String, String> _scientificNames = {
+    'maiz': 'Zea mays',
+    'papa': 'Solanum tuberosum',
+    'olluco': 'Ullucus tuberosus',
+    'mashua': 'Tropaeolum tuberosum',
+    'quinua': 'Chenopodium quinoa',
+    'habas': 'Vicia faba',
+    'alverjas': 'Pisum sativum',
+    'oca': 'Oxalis tuberosa',
+    'cebada': 'Hordeum vulgare',
+    'trigo': 'Triticum aestivum',
+    'zanahoria': 'Daucus carota',
+    'col': 'Brassica oleracea',
+    'lechuga': 'Lactuca sativa',
+    'apio': 'Apium graveolens',
+    'nabo': 'Brassica rapa',
   };
 
   @override
   void initState() {
     super.initState();
+    loc = AppLocalizations(widget.languageCode);
 
     _controller = AnimationController(
       vsync: this,
@@ -52,19 +62,22 @@ class _CropDetailScreenState extends State<CropDetailScreen>
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
 
+    // Fondo con movimiento suave
     _backgroundController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 20),
+      duration: const Duration(seconds: 30),
     )..repeat(reverse: true);
 
+    // Copos de nieve
     _snowController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 8),
+      duration: const Duration(seconds: 10),
     )..repeat();
 
+    // Viento
     _windController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 6),
+      duration: const Duration(seconds: 8),
     )..repeat();
 
     _controller.forward();
@@ -113,8 +126,8 @@ class _CropDetailScreenState extends State<CropDetailScreen>
                       position: _slideAnimation,
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 24),
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -149,7 +162,7 @@ class _CropDetailScreenState extends State<CropDetailScreen>
     );
   }
 
-  // Fondo animado con círculos suaves
+  // Fondo animado
   Widget _animatedTexture(AnimationController controller) => AnimatedBuilder(
     animation: controller,
     builder: (context, _) {
@@ -164,24 +177,24 @@ class _CropDetailScreenState extends State<CropDetailScreen>
     alignment: Alignment.center,
     children: [
       Container(
-        height: 180,
-        width: 180,
+        height: 200,
+        width: 200,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
           gradient: RadialGradient(
-            colors: [Color(0xFF90CAF9), Colors.transparent],
+            colors: [Color(0xFF64B5F6), Colors.transparent],
           ),
         ),
       ),
       Container(
-        height: 140,
-        width: 140,
+        height: 150,
+        width: 150,
         decoration: BoxDecoration(
           color: Colors.white,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withOpacity(0.3),
               blurRadius: 25,
               offset: const Offset(0, 10),
             ),
@@ -190,7 +203,7 @@ class _CropDetailScreenState extends State<CropDetailScreen>
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Image.asset(
-            'assets/images/crops/${cropData['image']}',
+            'assets/images/crops/${widget.cropName.toLowerCase()}.png',
             fit: BoxFit.contain,
           ),
         ),
@@ -201,7 +214,7 @@ class _CropDetailScreenState extends State<CropDetailScreen>
   Widget _cropNameSection() => Column(
     children: [
       Text(
-        cropData['name'],
+        loc.getText(widget.cropName.toLowerCase()),
         style: const TextStyle(
           fontFamily: 'Poppins',
           fontSize: 32,
@@ -218,7 +231,7 @@ class _CropDetailScreenState extends State<CropDetailScreen>
         textAlign: TextAlign.center,
       ),
       Text(
-        cropData['latin'],
+        _scientificNames[widget.cropName.toLowerCase()] ?? '',
         style: const TextStyle(
           fontFamily: 'Poppins',
           fontStyle: FontStyle.italic,
@@ -246,11 +259,11 @@ class _CropDetailScreenState extends State<CropDetailScreen>
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _infoRow(Icons.thermostat, 'Temperatura promedio',
-            '${cropData['temperature']} °C', deepBlue),
+        _infoRow(Icons.thermostat, loc.getText('temperature_avg'),
+            loc.getText('${widget.cropName.toLowerCase()}_temp'), deepBlue),
         const SizedBox(height: 20),
-        _sectionTitle(Icons.description_outlined, 'Descripción', deepBlue),
-        _textBody(cropData['description']!, darkGrey),
+        _sectionTitle(Icons.description_outlined, loc.getText('description'), deepBlue),
+        _textBody(loc.getText('${widget.cropName.toLowerCase()}_desc'), darkGrey),
         const SizedBox(height: 25),
         _frostCardWhite(),
         const SizedBox(height: 18),
@@ -259,33 +272,32 @@ class _CropDetailScreenState extends State<CropDetailScreen>
     ),
   );
 
-  Widget _infoRow(IconData icon, String label, String value, Color color) =>
-      Row(
-        children: [
-          Icon(icon, color: color),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              '$label:',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-                fontSize: 15,
-                color: color,
-              ),
-            ),
+  Widget _infoRow(IconData icon, String label, String value, Color color) => Row(
+    children: [
+      Icon(icon, color: color),
+      const SizedBox(width: 10),
+      Expanded(
+        child: Text(
+          '$label:',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w600,
+            fontSize: 15,
+            color: color,
           ),
-          Text(
-            value,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w700,
-              color: color,
-              fontSize: 15,
-            ),
-          ),
-        ],
-      );
+        ),
+      ),
+      Text(
+        value,
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w700,
+          color: color,
+          fontSize: 15,
+        ),
+      ),
+    ],
+  );
 
   Widget _sectionTitle(IconData icon, String title, Color color) => Row(
     children: [
@@ -320,11 +332,7 @@ class _CropDetailScreenState extends State<CropDetailScreen>
   Widget _frostCardWhite() => Container(
     width: double.infinity,
     decoration: BoxDecoration(
-      gradient: const LinearGradient(
-        colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
+      color: const Color(0xFFF5F7FA),
       borderRadius: BorderRadius.circular(20),
     ),
     padding: const EdgeInsets.all(18),
@@ -337,7 +345,7 @@ class _CropDetailScreenState extends State<CropDetailScreen>
             Container(
               padding: const EdgeInsets.all(12),
               decoration: const BoxDecoration(
-                color: Color(0xFF42A5F5),
+                color: Color(0xFF0D47A1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(Icons.ac_unit_rounded,
@@ -348,8 +356,8 @@ class _CropDetailScreenState extends State<CropDetailScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Helada Blanca',
+                  Text(
+                    loc.getText('white_frost'),
                     style: TextStyle(
                       color: Color(0xFF0D47A1),
                       fontWeight: FontWeight.bold,
@@ -358,9 +366,73 @@ class _CropDetailScreenState extends State<CropDetailScreen>
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    cropData['white_frost']!,
+                    loc.getText('${widget.cropName.toLowerCase()}_white'),
                     style: const TextStyle(
-                      color: Color(0xFF37474F),
+                      color: Color(0xFF263238),
+                      fontSize: 14.5,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+
+  Widget _frostCardBlack() => Container(
+    width: double.infinity,
+    decoration: BoxDecoration(
+      gradient: const LinearGradient(
+        colors: [Color(0xFF0D47A1), Color(0xFF001B44)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(20),
+    ),
+    padding: const EdgeInsets.all(18),
+    child: Stack(
+      children: [
+        Positioned.fill(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: CustomPaint(
+              painter: _WindPainter(_windController.value),
+            ),
+          ),
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: const BoxDecoration(
+                color: Color(0xFF1565C0),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.cloud_rounded,
+                  color: Colors.white, size: 24),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    loc.getText('black_frost'),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    loc.getText('${widget.cropName.toLowerCase()}_black'),
+                    style: const TextStyle(
+                      color: Colors.white70,
                       fontSize: 14.5,
                       height: 1.5,
                     ),
@@ -382,87 +454,12 @@ class _CropDetailScreenState extends State<CropDetailScreen>
       );
     },
   );
-
-  Widget _frostCardBlack() => Container(
-    width: double.infinity,
-    decoration: BoxDecoration(
-      gradient: const LinearGradient(
-        colors: [Color(0xFF0D47A1), Color(0xFF001B44)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      borderRadius: BorderRadius.circular(20),
-    ),
-    padding: const EdgeInsets.all(18),
-    child: Stack(
-      clipBehavior: Clip.hardEdge,
-      children: [
-        Positioned.fill(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: CustomPaint(
-              painter: _WindPainter(_windController.value),
-            ),
-          ),
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: const BoxDecoration(
-                color: Color(0xFF1976D2),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.cloud_rounded,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Helada Negra',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    cropData['black_frost']!,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14.5,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-
-  ),
-  );
-
-  Widget _windAnimation() => AnimatedBuilder(
-    animation: _windController,
-    builder: (context, _) {
-      return CustomPaint(
-        painter: _WindPainter(_windController.value),
-      );
-    },
-  );
 }
 
-// Fondo
+// ==========================
+// Animaciones visuales
+// ==========================
+
 class _CalmTexturePainter extends CustomPainter {
   final double progress;
   _CalmTexturePainter(this.progress);
@@ -470,14 +467,14 @@ class _CalmTexturePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.06)
+      ..color = Colors.white.withOpacity(0.05)
       ..style = PaintingStyle.fill;
 
-    final random = Random(10);
+    final random = Random(8);
     for (int i = 0; i < 6; i++) {
       final dx = size.width * random.nextDouble();
       final dy = size.height * random.nextDouble();
-      final double r = 180 + sin(progress * pi * 2 + i) * 90;
+      final double r = 220 + sin(progress * pi * 2 + i) * 100;
       canvas.drawCircle(Offset(dx, dy), r.abs(), paint);
     }
   }
@@ -493,16 +490,15 @@ class _SnowPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.85)
+      ..color = Colors.white.withOpacity(0.9)
       ..style = PaintingStyle.fill;
 
     final random = Random(5);
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 25; i++) {
       final dx = random.nextDouble() * size.width;
-      final dy =
-          (random.nextDouble() * size.height + progress * size.height) %
-              size.height;
-      canvas.drawCircle(Offset(dx, dy), 2 + random.nextDouble() * 3, paint);
+      final dy = (random.nextDouble() * size.height + progress * size.height) %
+          size.height;
+      canvas.drawCircle(Offset(dx, dy), 2.5 + random.nextDouble() * 3, paint);
     }
   }
 
@@ -517,14 +513,14 @@ class _WindPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.25)
-      ..strokeWidth = 2.5
+      ..color = Colors.white.withOpacity(0.3)
+      ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
-    for (int i = 0; i < 4; i++) {
-      final y = size.height * (i / 4);
-      final startX = (progress * size.width + i * 80) % size.width;
-      canvas.drawLine(Offset(startX - 60, y), Offset(startX + 60, y), paint);
+    for (int i = 0; i < 5; i++) {
+      final y = size.height * (i / 5);
+      final startX = (progress * size.width + i * 100) % size.width;
+      canvas.drawLine(Offset(startX - 80, y), Offset(startX + 80, y), paint);
     }
   }
 
