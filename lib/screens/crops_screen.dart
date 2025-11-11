@@ -220,16 +220,39 @@ class _CropsScreenState extends State<CropsScreen> with TickerProviderStateMixin
           borderRadius: BorderRadius.circular(24),
           splashColor: const Color(0xFF90CAF9).withOpacity(0.3),
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => CropDetailScreen(
-                  languageCode: widget.languageCode,
-                  cropName: cropName,
+            Navigator.of(context).push(PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 1000),
+              reverseTransitionDuration: const Duration(milliseconds: 700),
+              pageBuilder: (context, animation, secondaryAnimation) => FadeTransition(
+                opacity: animation,
+                child: ScaleTransition(
+                  scale: Tween<double>(begin: 0.96, end: 1.0)
+                      .animate(CurvedAnimation(parent: animation, curve: Curves.easeOutQuart)),
+                  child: CropDetailScreen(
+                    languageCode: widget.languageCode,
+                    cropName: cropName,
+                  ),
                 ),
               ),
-            );
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                final curved = CurvedAnimation(parent: animation, curve: Curves.easeInOutCubicEmphasized);
+                return FadeTransition(
+                  opacity: curved,
+                  child: SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(0, 0.06),
+                      end: Offset.zero,
+                    ).animate(curved),
+                    child: ScaleTransition(
+                      scale: Tween<double>(begin: 0.98, end: 1.0).animate(curved),
+                      child: child,
+                    ),
+                  ),
+                );
+              },
+            ));
           },
+
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
