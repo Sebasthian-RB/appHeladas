@@ -62,7 +62,7 @@ class _CropDetailScreenState extends State<CropDetailScreen>
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
 
-    // Fondo con movimiento suave
+    // Fondo con movimiento
     _backgroundController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 30),

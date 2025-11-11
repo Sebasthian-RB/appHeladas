@@ -149,7 +149,7 @@ class _AdviceScreenState extends State<AdviceScreen>
                         ),
                         const SizedBox(height: 18),
 
-                        // Título y subtítulo mejor jerarquizados
+                        // Título y subtítulo
                         Text(
                           t['title'] as String,
                           textAlign: TextAlign.center,
@@ -222,7 +222,7 @@ class _AdviceScreenState extends State<AdviceScreen>
     );
   }
 
-  /// Fondo decorativo circular.
+  /// Fondo
   Widget _softCircle(double size, Color color) {
     return Container(
       width: size,
@@ -241,7 +241,7 @@ class _AdviceScreenState extends State<AdviceScreen>
     );
   }
 
-  /// Tarjeta con consejos.
+  /// Tarjeta con consejos
   Widget _buildAdviceCard({
     required String title,
     required IconData icon,

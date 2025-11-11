@@ -1,4 +1,3 @@
-// lib/screens/crops_screen.dart
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -76,7 +75,7 @@ class _CropsScreenState extends State<CropsScreen> with TickerProviderStateMixin
       body: AnimatedBuilder(
         animation: _bgController,
         builder: (context, _) {
-          // 🎨 Fondo dinámico azul con partículas y ondas
+          // Fondo dinámico azul
           final c1 = Color.lerp(const Color(0xFF1565C0), const Color(0xFF0D47A1), _bgController.value)!;
           final c2 = Color.lerp(const Color(0xFF3164A0), const Color(0xFF1D4576), 1 - _bgController.value)!;
 
@@ -189,8 +188,6 @@ class _CropsScreenState extends State<CropsScreen> with TickerProviderStateMixin
                     ],
                   ),
                 ),
-
-
               ],
             ),
           );
@@ -258,7 +255,7 @@ class _CropsScreenState extends State<CropsScreen> with TickerProviderStateMixin
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Imagen circular centrada
+                // Imagen circular
                 Container(
                   height: 90,
                   width: 90,
@@ -307,7 +304,7 @@ class _CropsScreenState extends State<CropsScreen> with TickerProviderStateMixin
   }
 }
 
-/// Fondo con partículas y curvas (azul)
+/// Fondo animado
 class _BackgroundParticles extends StatelessWidget {
   final AnimationController controller;
   const _BackgroundParticles({required this.controller});

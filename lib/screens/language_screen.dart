@@ -26,7 +26,7 @@ class LanguageScreen extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            // Elementos decorativos sutiles en el fondo
+            // Elementos decorativos
             Positioned(
               top: -80,
               right: -50,
@@ -43,7 +43,7 @@ class LanguageScreen extends StatelessWidget {
               child: _softCircle(150, Colors.white.withOpacity(0.04)),
             ),
 
-            // Contenido principal centrado
+            // Contenido principal
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 36.0),
@@ -131,7 +131,7 @@ class LanguageScreen extends StatelessWidget {
     );
   }
 
-  /// Lógica central: notifica a MyApp y reemplaza la pila por HomeScreen con el idioma nuevo.
+  /// Lógica central: notifica a la app y reemplaza la pila por HomeScreen con el idioma nuevo.
   void _selectLanguageAndGo(BuildContext context, String langCode) {
     // 1) Actualiza el estado global a través del callback
     onLanguageSelected(langCode);

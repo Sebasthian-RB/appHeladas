@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: const Color(0xFFF6F3E8), // color de fondo suave
+      backgroundColor: const Color(0xFFF6F3E8), // color de fondo
     );
   }
 }

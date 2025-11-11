@@ -4,8 +4,6 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'language_screen.dart';
 
 /// Pantalla de carga animada (Splash Screen)
-/// Muestra el ícono principal con un suave movimiento circular
-/// y mantiene la identidad visual del diseño general de la app.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -67,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
         ),
         child: Stack(
           children: [
-            // Círculos decorativos suaves
+            // Círculos decorativos
             Positioned(
               top: -80,
               right: -50,
@@ -89,7 +87,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Ícono dentro del círculo degradado animado
+                  // Ícono
                   RotationTransition(
                     turns: _rotation,
                     child: Container(
@@ -132,7 +130,7 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                   const SizedBox(height: 12),
 
-                  // Lema o subtítulo breve
+                  // Lema (subtítulo)
                   Text(
                     'Predicción y bienestar climático',
                     textAlign: TextAlign.center,
@@ -152,7 +150,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  /// Círculos decorativos del fondo, con transparencia y sombra difusa.
+  /// Círculos decorativos del fondo
   Widget _softCircle(double size, Color color) {
     return Container(
       width: size,
